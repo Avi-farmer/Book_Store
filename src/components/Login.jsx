@@ -50,7 +50,7 @@ function Login() {
               ✕
             </Link>
 
-            <h3 className="font-bold text-lg text-black">Login</h3>
+            <h3 className="font-bold text-lg">Login</h3>
             {/* Email */}
             <div className="mt-4 space-y-2">
               <span>Email</span>
