@@ -1,26 +1,24 @@
-import { useState } from 'react';
+import { Outlet } from 'react-router-dom';
 import Sidebar from '../adminDashboard/Sidebar';
-import Navbar from '../adminDashboard/Navbar';
-import AddBookForm from '../adminDashboard/AddBookForm';
-import BookList from '../adminDashboard/BookList';
 
 export default function AdminPanel() {
-  const [view, setView] = useState('books');
-
   return (
-    <div className="flex h-screen overflow-hidden">
-      <div className="w-64 bg-gray-800 text-white fixed h-screen z-10">
-        <Sidebar setView={setView} />
+    <div className="flex h-screen overflow-hidden bg-gray-100 dark:bg-slate-900">
+      {/* Sidebar */}
+      <div className="w-64 bg-gray-800 text-white fixed h-full z-30"> {/* Increased z-index for sidebar */}
+        <Sidebar />
       </div>
 
-      <div className="flex flex-col flex-1 ml-64">
-        <div className="fixed top-0 left-64 right-0 z-10 bg-white shadow">
-          <Navbar />
-        </div>
+      {/* Main content area */}
+      <div className="flex flex-col flex-1 ml-64"> {/* Adjust ml to match sidebar width */}
+        {/* Top Navbar (Admin's Navbar) */}
+        {/* Ensure this navbar has a defined height, e.g., h-16 or h-20 */}
 
-        <div className="mt-16 p-6 overflow-y-auto h-screen">
-          {view === 'books' ? <BookList /> : <AddBookForm />}
-        </div>
+        {/* Page content */}
+        {/* Adjust pt (padding-top) to match the navbar's height */}
+        <main className="pt-16 p-4 md:p-6 overflow-y-auto flex-1"> {/* Changed mt-16 to pt-16 */}
+          <Outlet /> {/* Nested routes will render here */}
+        </main>
       </div>
     </div>
   );

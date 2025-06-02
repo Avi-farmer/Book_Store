@@ -1,21 +1,42 @@
-export default function Sidebar({ setView }) {
+import { Link, useLocation } from 'react-router-dom';
+import { Package, PlusCircle, ShoppingCart } from 'lucide-react'; // Example icons
+
+export default function Sidebar() {
+  const location = useLocation();
+
+  const linkClasses = "flex items-center px-4 py-3 text-gray-300 rounded-lg hover:bg-gray-700 hover:text-white transition-colors duration-150";
+  const activeLinkClasses = "bg-gray-700 text-white";
+
   return (
-    <aside className="w-64 min-h-screen bg-gray-800 text-white flex flex-col p-6 shadow-lg">
-      <h2 className="text-3xl font-semibold mb-8 border-b border-gray-700 pb-4">Dashboard</h2>
-      <nav className="flex flex-col gap-4">
-        <button
-          onClick={() => setView('books')}
-          className="px-4 py-2 text-left bg-gray-700 rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+    <aside className="w-64 h-full bg-gray-800 text-white flex flex-col p-4 shadow-lg"> {/* Use h-full for fixed sidebar */}
+      <div className="px-2 py-4 mb-4 border-b border-gray-700">
+        <h2 className="text-2xl font-semibold text-white">Admin Panel</h2>
+      </div>
+      <nav className="flex flex-col gap-2">
+        <Link
+          to="books"
+          className={`${linkClasses} ${location.pathname.endsWith('/books') || location.pathname.endsWith('/dashboard') ? activeLinkClasses : ''}`}
         >
-          📚 Books List
-        </button>
-        <button
-          onClick={() => setView('add')}
-          className="px-4 py-2 text-left bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          <Package size={20} className="mr-3" />
+          Books List
+        </Link>
+        <Link
+          to="add-book"
+          className={`${linkClasses} ${location.pathname.endsWith('/add-book') ? activeLinkClasses : ''}`}
         >
-          ➕ Add Book
-        </button>
+          <PlusCircle size={20} className="mr-3" />
+          Add Book
+        </Link>
+        <Link
+          to="orders"
+          className={`${linkClasses} ${location.pathname.endsWith('/orders') ? activeLinkClasses : ''}`}
+        >
+          <ShoppingCart size={20} className="mr-3" />
+          Orders
+        </Link>
       </nav>
     </aside>
   );
 }
+
+// No more propTypes needed as setView is removed

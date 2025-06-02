@@ -1,11 +1,11 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom"; // Import Link
 import Login from "./Login";
 import Logout from "./Logout";
 import { useAuth } from "../context/AuthProvider";
 
 function Navbar() {
-  const [authUser, setAuthUser] = useAuth();
+  const [authUser] = useAuth();
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
   );
@@ -20,7 +20,7 @@ function Navbar() {
       localStorage.setItem("theme", "light");
       document.body.classList.remove("dark");
     }
-  }, [theme]);
+  }, [theme, element.classList]);
 
   const [sticky, setSticky] = useState(false);
   useEffect(() => {
@@ -36,20 +36,26 @@ function Navbar() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
   const navItems = (
     <>
       <li>
-        <a href="/">Home</a>
+        <Link to="/">Home</Link>
       </li>
       <li>
-        <a href="/course">Course</a>
+        <Link to="/course">Course</Link>
       </li>
       <li>
-        <a>Contact</a>
+        <Link to="/contact">Contact</Link> {/* Assuming a /contact route exists or will be added */}
       </li>
       <li>
-        <a>About</a>
+        <Link to="/about">About</Link> {/* Assuming an /about route exists or will be added */}
       </li>
+      {authUser && authUser.user?.role === 'admin' && (
+        <li>
+          <Link to="/dashboard">Dashboard</Link>
+        </li>
+      )}
     </>
   );
   return (

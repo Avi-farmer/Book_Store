@@ -35,6 +35,11 @@ export default function AddBookForm() {
   };
 
   return (
+    <>
+    <br />
+    <br />
+    <br />
+    <h1 className='ps-20 text-3xl'>Add Book Form</h1>
     <form onSubmit={handleSubmit} className="max-w-md space-y-4">
       {['name', 'title', 'category', 'image', 'price'].map((field) => (
         <div key={field}>
@@ -53,5 +58,6 @@ export default function AddBookForm() {
         Add Book
       </button>
     </form>
+    </>
   );
 }

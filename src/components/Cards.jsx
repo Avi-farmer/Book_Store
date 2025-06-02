@@ -1,4 +1,5 @@
-
+import { Link } from "react-router-dom";
+import PropTypes from 'prop-types';
 
 function Cards({ item }) {
   return (
@@ -16,9 +17,9 @@ function Cards({ item }) {
             <p>{item.title}</p>
             <div className="card-actions justify-between">
               <div className="badge badge-outline">${item.price}</div>
-              <div className=" cursor-pointer px-2 py-1 rounded-full border-[2px] hover:bg-pink-500 hover:text-white duration-200">
-                Buy Now
-              </div>
+              <Link to={`/course/${item._id || item.id}`}><div className=" cursor-pointer px-2 py-1 rounded-full border-[2px] hover:bg-pink-500 hover:text-white duration-200">
+                See Details
+              </div></Link>
             </div>
           </div>
         </div>
@@ -26,5 +27,17 @@ function Cards({ item }) {
     </>
   );
 }
+
+Cards.propTypes = {
+  item: PropTypes.shape({
+    _id: PropTypes.string,
+    id: PropTypes.string,
+    image: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    category: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  }).isRequired,
+};
 
 export default Cards;

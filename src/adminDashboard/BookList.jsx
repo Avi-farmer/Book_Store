@@ -4,7 +4,6 @@ import { Trash2, Pencil } from "lucide-react";
 
 export default function BookList() {
   const [books, setBooks] = useState([]);
-  const [showModal, setShowModal] = useState(false);
   const [selectedBook, setSelectedBook] = useState(null);
   const [bookToDelete, setBookToDelete] = useState(null);
   const [formData, setFormData] = useState({
@@ -40,7 +39,6 @@ export default function BookList() {
   const handleEditClick = (book) => {
     setSelectedBook(book);
     setFormData(book); // Pre-fill the modal with selected book data
-    setShowModal(true);
     document.getElementById("edit_modal").showModal();
   };
 
@@ -56,7 +54,6 @@ export default function BookList() {
         formData
       );
       fetchBooks();
-      setShowModal(false);
       document.getElementById("edit_modal").close();
     } catch (error) {
       console.error("Error updating book:", error);
@@ -64,6 +61,9 @@ export default function BookList() {
   };
 
   return (
+    <>
+    <br />
+    <br />
     <div>
       <h2 className="text-2xl font-bold mb-4">Books List</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -138,7 +138,7 @@ export default function BookList() {
           </div>
           <div className="modal-action">
             <form method="dialog">
-              <button className="btn" onClick={() => setShowModal(false)}>
+              <button className="btn">
                 Cancel
               </button>
               <button
@@ -179,5 +179,6 @@ export default function BookList() {
         </div>
       </dialog>
     </div>
+    </>
   );
 }
